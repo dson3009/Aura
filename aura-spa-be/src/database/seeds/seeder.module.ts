@@ -1,0 +1,113 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/modules/user/entities/user.entity';
+import { Branch } from 'src/modules/branch/entities/branch.entity';
+import { Service } from 'src/modules/service/entities/service.entity';
+import { BranchOpeningHours } from 'src/modules/branch/entities/branch-opening-hours.entity';
+import { BranchStaff } from 'src/modules/branch/entities/branch-staff.entity';
+import { BranchService as BranchServiceEntity } from 'src/modules/branch-service/entities/branch-service.entity';
+import { BookingSlotConfig } from 'src/modules/booking/entities/booking-slot-config.entity';
+import { Booking } from 'src/modules/booking/entities/booking.entity';
+import { BookingService as BookingServiceEntity } from 'src/modules/booking/entities/booking-service.entity';
+import { Invoice } from 'src/modules/payment/entities/invoice.entity';
+import { InvoiceItem } from 'src/modules/payment/entities/invoice-item.entity';
+import { Payment } from 'src/modules/payment/entities/payment.entity';
+import { Review } from 'src/modules/review/entities/review.entity';
+import { HealthRecord } from 'src/modules/health/entities/health-record.entity';
+import { InventoryItem } from 'src/modules/inventory/entities/inventory-item.entity';
+import { BranchInventory } from 'src/modules/inventory/entities/branch-inventory.entity';
+import { ServiceInventoryRequirement } from 'src/modules/inventory/entities/service-inventory-requirement.entity';
+import { Promotion } from 'src/modules/promotion/entities/promotion.entity';
+import { DiscountCode } from 'src/modules/promotion/entities/discount-code.entity';
+import { TreatmentCourse } from 'src/modules/treatment/entities/treatment-course.entity';
+import { TreatmentSession } from 'src/modules/treatment/entities/treatment-session.entity';
+import { Conversation } from 'src/modules/communication/entities/conversation.entity';
+import { Message } from 'src/modules/communication/entities/message.entity';
+import { Complaint } from 'src/modules/communication/entities/complaint.entity';
+import { ScheduleRequest } from 'src/modules/schedule/entities/schedule-request.entity';
+import { StaffSchedule } from 'src/modules/schedule/entities/staff-schedule.entity';
+import { SeederService } from './seeder.service';
+import { BranchSetupSeeder } from './branch-setup.seeder';
+import { ScheduleSeeder } from './schedule.seeder';
+import { TreatmentSeeder } from './treatment.seeder';
+import { BookingSeeder } from './booking.seeder';
+import { PaymentSeeder } from './payment.seeder';
+import { ReviewSeeder } from './review.seeder';
+import { HealthSeeder } from './health.seeder';
+import { InventorySeeder } from './inventory.seeder';
+import { PromotionSeeder } from './promotion.seeder';
+import { DiscountCodeSeeder } from './discount-code.seeder';
+import { ConversationSeeder } from './conversation.seeder';
+import { ComplaintSeeder } from './complaint.seeder';
+import { PerformanceDataSeeder } from './performance-data.seeder';
+import { DemoAiPersonasSeeder } from './demo-ai-personas.seeder';
+import { Strategy } from 'src/modules/strategy/entities/strategy.entity';
+import { ActivityLog } from 'src/modules/activity-log/entities/activity-log.entity';
+import { InventoryTransaction } from 'src/modules/inventory/entities/inventory-transaction.entity';
+import { LoyaltyAccount } from 'src/modules/loyalty/entities/loyalty-account.entity';
+import { LoyaltyTransaction } from 'src/modules/loyalty/entities/loyalty-transaction.entity';
+import { Notification } from 'src/modules/notification/entities/notification.entity';
+import { PaymentTransaction } from 'src/modules/payment/domain/entities/payment-transaction.entity';
+import { BranchDailyAggregate } from 'src/modules/report/entities/branch-daily-aggregate.entity';
+import { OperationalDemoSeeder } from './operational-demo.seeder';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      User,
+      Branch,
+      Service,
+      Strategy,
+      BranchOpeningHours,
+      BranchStaff,
+      BranchServiceEntity,
+      BookingSlotConfig,
+      Booking,
+      BookingServiceEntity,
+      Invoice,
+      InvoiceItem,
+      Payment,
+      Review,
+      HealthRecord,
+      InventoryItem,
+      BranchInventory,
+      ServiceInventoryRequirement,
+      Promotion,
+      DiscountCode,
+      TreatmentCourse,
+      TreatmentSession,
+      Conversation,
+      Message,
+      Complaint,
+      ScheduleRequest,
+      StaffSchedule,
+      ActivityLog,
+      InventoryTransaction,
+      LoyaltyAccount,
+      LoyaltyTransaction,
+      Notification,
+      PaymentTransaction,
+      BranchDailyAggregate,
+    ]),
+  ],
+  providers: [
+    SeederService,
+    BranchSetupSeeder,
+    BookingSeeder,
+    PaymentSeeder,
+    ReviewSeeder,
+    HealthSeeder,
+    InventorySeeder,
+    PromotionSeeder,
+    DiscountCodeSeeder,
+    TreatmentSeeder,
+    ConversationSeeder,
+    ComplaintSeeder,
+    ScheduleSeeder,
+    PerformanceDataSeeder,
+    DemoAiPersonasSeeder,
+    OperationalDemoSeeder,
+  ],
+  exports: [DemoAiPersonasSeeder, OperationalDemoSeeder],
+})
+export class SeederModule {}

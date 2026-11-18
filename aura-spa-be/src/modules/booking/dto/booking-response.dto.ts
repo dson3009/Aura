@@ -1,0 +1,149 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { BookingStatus } from '../enums/booking-status.enum';
+import { BookingSource } from '../enums/booking-source.enum';
+
+export class BookingServiceItemDto {
+  @ApiProperty({ example: '1' })
+  id!: string;
+
+  @ApiProperty({ example: '2' })
+  serviceId!: string;
+
+  @ApiPropertyOptional({ example: { id: '2', name: 'Massage Thụy Điển Cổ Điển', category: 'Massage' } })
+  service?: {
+    id: string;
+    name: string;
+    category: string | null;
+  };
+
+  @ApiProperty({ example: 1 })
+  quantity!: number;
+
+  @ApiProperty({ example: 60 })
+  durationMinutes!: number;
+
+  @ApiProperty({ example: 350000 })
+  unitPrice!: number;
+
+  @ApiProperty({ example: 0 })
+  discountAmount!: number;
+
+  @ApiProperty({ example: 350000 })
+  finalAmount!: number;
+}
+
+export class BookingTreatmentSessionDto {
+  @ApiProperty({ example: '12' })
+  id!: string;
+
+  @ApiProperty({ example: '4' })
+  treatmentCourseId!: string;
+
+  @ApiProperty({ example: 2 })
+  sessionNumber!: number;
+
+  @ApiProperty({ example: 5 })
+  totalSessions!: number;
+
+  @ApiProperty({ example: 2 })
+  usedSessions!: number;
+
+  @ApiProperty({ example: 3 })
+  remainingSessions!: number;
+
+  @ApiProperty({ example: 'booked' })
+  status!: string;
+
+  @ApiPropertyOptional({ example: 'Buổi trị liệu đã hoàn thành...' })
+  progressNote!: string | null;
+
+  @ApiPropertyOptional({ type: [String] })
+  beforeImages!: string[] | null;
+
+  @ApiPropertyOptional({ type: [String] })
+  afterImages!: string[] | null;
+
+  @ApiPropertyOptional({ example: 'Drink water and rest after the treatment session.' })
+  careRecommendation!: string | null;
+
+  @ApiPropertyOptional({ example: '2026-07-20T03:00:00.000Z' })
+  nextRecommendedAt!: Date | null;
+
+  @ApiPropertyOptional({ example: '2026-07-19T03:00:00.000Z' })
+  reminderSentAt!: Date | null;
+}
+
+export class BookingResponseDto {
+  @ApiProperty({ example: '1' })
+  id!: string;
+
+  @ApiProperty({ example: '42' })
+  customerId!: string;
+
+  @ApiProperty({ example: '1' })
+  branchId!: string;
+
+  @ApiPropertyOptional({ example: '7' })
+  technicianId!: string | null;
+
+  @ApiProperty({ example: '2026-06-20T02:00:00.000Z' })
+  startTime!: Date;
+
+  @ApiProperty({ example: '2026-06-20T03:00:00.000Z' })
+  endTime!: Date;
+
+  @ApiProperty({ enum: BookingStatus, enumName: 'BookingStatus', example: BookingStatus.Confirmed })
+  status!: BookingStatus;
+
+  @ApiProperty({ enum: BookingSource, enumName: 'BookingSource', example: BookingSource.Online })
+  source!: BookingSource;
+
+  @ApiProperty({ example: 350000 })
+  subtotalAmount!: number;
+
+  @ApiProperty({ example: 0 })
+  discountAmount!: number;
+
+  @ApiProperty({ example: 0 })
+  depositRequiredAmount!: number;
+
+  @ApiProperty({ example: 0 })
+  paidAmount!: number;
+
+  @ApiProperty({ example: 350000 })
+  remainingAmount!: number;
+
+  @ApiPropertyOptional({ example: 'Phòng VIP 1' })
+  room!: string | null;
+
+  @ApiPropertyOptional({ example: 'Please use fragrance-free products.' })
+  notes!: string | null;
+
+  @ApiPropertyOptional({ example: { id: '42', fullName: 'Nguyễn Thị Lan', phone: '0901111001', email: 'lan.nguyen@gmail.com' } })
+  customer?: {
+    id: string;
+    fullName: string;
+    phone: string | null;
+    email: string | null;
+  };
+
+  @ApiPropertyOptional({ example: { id: '7', fullName: 'Võ Thị Thu', phone: '0902222001', email: 'thu.vo@aura-spa.com' } })
+  technician?: {
+    id: string;
+    fullName: string;
+    phone: string | null;
+    email: string | null;
+  } | null;
+
+  @ApiProperty({ type: [BookingServiceItemDto] })
+  services!: BookingServiceItemDto[];
+
+  @ApiPropertyOptional({ type: BookingTreatmentSessionDto })
+  treatmentSession?: BookingTreatmentSessionDto | null;
+
+  @ApiProperty({ example: '2026-06-20T00:00:00.000Z' })
+  createdAt!: Date;
+
+  @ApiProperty({ example: '2026-06-20T00:00:00.000Z' })
+  updatedAt!: Date;
+}

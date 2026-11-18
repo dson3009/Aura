@@ -1,0 +1,5 @@
+﻿services:
+  app_server:
+    environment:
+      POSTGRES_SSL: 'false'
+
